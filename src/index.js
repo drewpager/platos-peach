@@ -6,10 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const express_1 = __importDefault(require("express"));
 const apollo_server_express_1 = require("apollo-server-express");
+// import { ApolloServer } from "@apollo/server";
+// import { startStandaloneServer } from "@apollo/server/standalone";
 // import { expressMiddleware } from "@apollo/server/express4";
 // import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 // import http from "http";
 const body_parser_1 = __importDefault(require("body-parser"));
+const graphql_scalars_1 = require("graphql-scalars");
 const graphql_1 = require("./graphql");
 const database_1 = require("./database");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
@@ -28,8 +31,8 @@ const mount = async (app) => {
     app.use(express_1.default.static(`${__dirname}/`));
     app.get("/*", (_req, res) => res.sendFile(`${__dirname}/index.html`));
     const server = new apollo_server_express_1.ApolloServer({
-        typeDefs: graphql_1.typeDefs,
-        resolvers: graphql_1.resolvers,
+        typeDefs: [graphql_1.typeDefs, graphql_scalars_1.typeDefs],
+        resolvers: [graphql_1.resolvers, graphql_scalars_1.resolvers],
         context: ({ req, res }) => ({ db, req, res }),
     });
     await server.start();

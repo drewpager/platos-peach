@@ -4,7 +4,9 @@ exports.lessonResolvers = void 0;
 const index_1 = require("../../../lib/utils/index");
 const mongodb_1 = require("mongodb");
 const graphql_1 = require("graphql");
-const dateRegex = /\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])|-[1-9]\d{0,11}|[1-9]\d{0,4}/;
+const dateRegex = 
+// /\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])|-[1-9]\d{0,11}|[1-9]\d{0,4}/
+/\=(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\d|3[0-1])|-[1-9]\d{0,11}|[1-9]\d{0,4}|([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))|(Present)/;
 const validate = (value) => {
     if (typeof value !== "string") {
         throw new Error(`Value is not a string ${value}`);
