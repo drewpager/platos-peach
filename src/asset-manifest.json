@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3befa5b0.css",
-    "main.js": "/static/js/main.807276ff.js",
+    "main.css": "/static/css/main.5558d83a.css",
+    "main.js": "/static/js/main.04a5ebd8.js",
     "static/js/787.ee616d6a.chunk.js": "/static/js/787.ee616d6a.chunk.js",
     "static/media/classroom.jpg": "/static/media/classroom.8d5c60f200734b0b28c9.jpg",
     "static/media/noto-serif-all-400-normal.woff": "/static/media/noto-serif-all-400-normal.cc8d505e17e9106c7bb6.woff",
@@ -14,12 +14,12 @@
     "static/media/noto-serif-greek-ext-400-normal.woff2": "/static/media/noto-serif-greek-ext-400-normal.42a9f5d91dcd0b514f8e.woff2",
     "static/media/noto-serif-vietnamese-400-normal.woff2": "/static/media/noto-serif-vietnamese-400-normal.f1c754dda31c5a66e5dc.woff2",
     "index.html": "/index.html",
-    "main.3befa5b0.css.map": "/static/css/main.3befa5b0.css.map",
-    "main.807276ff.js.map": "/static/js/main.807276ff.js.map",
+    "main.5558d83a.css.map": "/static/css/main.5558d83a.css.map",
+    "main.04a5ebd8.js.map": "/static/js/main.04a5ebd8.js.map",
     "787.ee616d6a.chunk.js.map": "/static/js/787.ee616d6a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3befa5b0.css",
-    "static/js/main.807276ff.js"
+    "static/css/main.5558d83a.css",
+    "static/js/main.04a5ebd8.js"
   ]
 }
