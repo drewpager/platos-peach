@@ -103,21 +103,14 @@ exports.lessonResolvers = {
         },
     },
     Mutation: {
-        createLesson: async (viewer, { input }, { db }) => {
+        createLesson: async (_root, { input }, { db }) => {
             const id = new mongodb_1.ObjectId();
-            //TODO: Fix Viewer resolution vs hard coded id
-            if (viewer && viewer._id) {
-                const viewerId = viewer._id;
-                console.log("ViewerId: ", viewerId);
-            }
             // const viewerId = viewer && viewer.id ? viewer.id : "116143759549242008910";
             try {
                 verifyCreateLessonInput(input);
                 const insertResult = await db.lessons.insertOne({
                     _id: id,
                     ...input,
-                    // creator: viewerId
-                    creator: "116143759549242008910",
                 });
                 const insertedResult = insertResult
                     ? await db.lessons.findOne({ _id: insertResult.insertedId })
@@ -125,7 +118,7 @@ exports.lessonResolvers = {
                 if (!insertedResult) {
                     throw new Error("Lesson is undefined");
                 }
-                await db.users.updateOne({ _id: "116143759549242008910" }, { $push: { lessons: insertedResult } });
+                await db.users.updateOne({ _id: `${input.creator}` }, { $push: { lessons: insertedResult } });
                 return insertedResult;
             }
             catch (e) {

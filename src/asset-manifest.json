@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/static/css/main.40a066f2.css",
-    "main.js": "/static/js/main.31532039.js",
+    "main.css": "/static/css/main.5664eb14.css",
+    "main.js": "/static/js/main.afd088f7.js",
     "static/js/787.ee616d6a.chunk.js": "/static/js/787.ee616d6a.chunk.js",
-    "static/media/classroom.jpg": "/static/media/classroom.8d5c60f200734b0b28c9.jpg",
+    "static/media/drag-and-drop.gif": "/static/media/drag-and-drop.2fb9cd5bc4df6a0a676e.gif",
     "static/media/noto-serif-all-400-normal.woff": "/static/media/noto-serif-all-400-normal.cc8d505e17e9106c7bb6.woff",
     "static/media/noto-serif-latin-ext-400-normal.woff2": "/static/media/noto-serif-latin-ext-400-normal.dacb5b2801ec86ed9cd4.woff2",
     "static/media/peach-logo.svg": "/static/media/peach-logo.5002c8f528fa52cc1d8955932c39a683.svg",
@@ -14,12 +14,12 @@
     "static/media/noto-serif-greek-ext-400-normal.woff2": "/static/media/noto-serif-greek-ext-400-normal.42a9f5d91dcd0b514f8e.woff2",
     "static/media/noto-serif-vietnamese-400-normal.woff2": "/static/media/noto-serif-vietnamese-400-normal.f1c754dda31c5a66e5dc.woff2",
     "index.html": "/index.html",
-    "main.40a066f2.css.map": "/static/css/main.40a066f2.css.map",
-    "main.31532039.js.map": "/static/js/main.31532039.js.map",
+    "main.5664eb14.css.map": "/static/css/main.5664eb14.css.map",
+    "main.afd088f7.js.map": "/static/js/main.afd088f7.js.map",
     "787.ee616d6a.chunk.js.map": "/static/js/787.ee616d6a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.40a066f2.css",
-    "static/js/main.31532039.js"
+    "static/css/main.5664eb14.css",
+    "static/js/main.afd088f7.js"
   ]
 }
