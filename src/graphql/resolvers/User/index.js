@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userResolvers = void 0;
-const utils_1 = require("../../../lib/utils");
+const utils_1 = require("../../../lib/utils/");
 exports.userResolvers = {
     Query: {
         user: async (_root, { id }, { db, req }) => {

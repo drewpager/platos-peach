@@ -41,7 +41,6 @@ const verifyCreateLessonInput = ({ title, category, meta, video, startDate, endD
         throw new Error("Please format date as Year-Month-Day (YYYY-MM-DD)");
     }
     if (!dateRegex.test(endDate)) {
-        console.log("ERROR WILL ROBINSON!");
         throw new Error("Please format date as Year-Month-Day (YYYY-MM-DD)");
     }
     // if (meta.length < 160) {
