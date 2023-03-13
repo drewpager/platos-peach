@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userResolvers = void 0;
-const utils_1 = require("../../../lib/utils/");
+const utils_1 = require("../../../lib/utils");
 exports.userResolvers = {
     Query: {
         user: async (_root, { id }, { db, req }) => {
@@ -102,6 +102,17 @@ exports.userResolvers = {
             }
             catch (e) {
                 throw new Error(`Failed to query quizzes ${e}`);
+            }
+        },
+        bookmarks: async (user, {}, { db }) => {
+            try {
+                const cursor = await db.users.distinct("bookmarks", {
+                    _id: `${user._id}`,
+                });
+                return cursor;
+            }
+            catch (e) {
+                throw new Error(`Failed to bookmark anything ${e}`);
             }
         },
     },

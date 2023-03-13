@@ -15,7 +15,7 @@ exports.quizResolvers = {
             const data = {
                 total: 0,
                 result: [],
-                totalCount: 0
+                totalCount: 0,
             };
             let cursor = await db.quizzes.find({});
             const count = cursor;
@@ -30,7 +30,7 @@ exports.quizResolvers = {
     Quiz: {
         id: (quiz) => {
             return quiz._id;
-        }
+        },
     },
     Mutation: {
         createQuiz: async (_root, { input }, { db }) => {
@@ -38,9 +38,11 @@ exports.quizResolvers = {
             try {
                 const insertQuiz = await db.quizzes.insertOne({
                     _id: id,
-                    ...input
+                    ...input,
                 });
-                const insertedQuiz = insertQuiz ? await db.quizzes.findOne({ _id: insertQuiz.insertedId }) : false;
+                const insertedQuiz = insertQuiz
+                    ? await db.quizzes.findOne({ _id: insertQuiz.insertedId })
+                    : false;
                 if (!insertedQuiz) {
                     throw new Error(`Failed to insert quiz!`);
                 }
@@ -49,6 +51,6 @@ exports.quizResolvers = {
             catch (err) {
                 throw new Error(`Failed with error: ${err}`);
             }
-        }
-    }
+        },
+    },
 };

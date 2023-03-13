@@ -138,6 +138,21 @@ exports.lessonResolvers = {
                 throw new Error(`Failed to start deleting lesson: ${error}`);
             }
         },
+        bookmarkLesson: async (_root, { id, viewer }, { db }) => {
+            try {
+                const data = await db.lessons.findOne({
+                    _id: new mongodb_1.ObjectId(id),
+                });
+                const bookmark = await db.users.updateOne({ _id: viewer }, { $push: { bookmarks: data } });
+                if (!bookmark) {
+                    throw new Error("Failed to bookmark lesson!");
+                }
+                return bookmark.acknowledged;
+            }
+            catch (error) {
+                throw new Error(`Failed to bookmark lesson entirely: ${error}`);
+            }
+        },
     },
     DateScalar: GraphQLDate,
 };

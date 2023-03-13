@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e67b1635.css",
-    "main.js": "/static/js/main.1aca596b.js",
+    "main.css": "/static/css/main.4cb24a1c.css",
+    "main.js": "/static/js/main.b1fa9981.js",
     "static/js/787.ee616d6a.chunk.js": "/static/js/787.ee616d6a.chunk.js",
     "static/media/drag-and-drop.gif": "/static/media/drag-and-drop.2fb9cd5bc4df6a0a676e.gif",
     "static/media/noto-serif-all-400-normal.woff": "/static/media/noto-serif-all-400-normal.cc8d505e17e9106c7bb6.woff",
@@ -14,12 +14,12 @@
     "static/media/noto-serif-greek-ext-400-normal.woff2": "/static/media/noto-serif-greek-ext-400-normal.42a9f5d91dcd0b514f8e.woff2",
     "static/media/noto-serif-vietnamese-400-normal.woff2": "/static/media/noto-serif-vietnamese-400-normal.f1c754dda31c5a66e5dc.woff2",
     "index.html": "/index.html",
-    "main.e67b1635.css.map": "/static/css/main.e67b1635.css.map",
-    "main.1aca596b.js.map": "/static/js/main.1aca596b.js.map",
+    "main.4cb24a1c.css.map": "/static/css/main.4cb24a1c.css.map",
+    "main.b1fa9981.js.map": "/static/js/main.b1fa9981.js.map",
     "787.ee616d6a.chunk.js.map": "/static/js/787.ee616d6a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e67b1635.css",
-    "static/js/main.1aca596b.js"
+    "static/css/main.4cb24a1c.css",
+    "static/js/main.b1fa9981.js"
   ]
 }
