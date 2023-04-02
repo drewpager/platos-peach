@@ -25,8 +25,8 @@ exports.userResolvers = {
         id: (user) => {
             return user._id;
         },
-        hasPayment: (user) => {
-            return Boolean(user.paymentId);
+        hasPayment: async (user) => {
+            return user.paymentId;
         },
         playlists: async (user, { limit, page }, { db }) => {
             try {
@@ -113,6 +113,17 @@ exports.userResolvers = {
             }
             catch (e) {
                 throw new Error(`Failed to bookmark anything ${e}`);
+            }
+        },
+    },
+    Mutation: {
+        addPayment: async (_root, { id, userId }, { db }) => {
+            try {
+                const userPay = await db.users.findOneAndUpdate({ _id: `${userId}` }, { $set: { paymentId: `${id}` } });
+                return userPay.value ? true : false;
+            }
+            catch (err) {
+                throw new Error(`Error adding payment in Mutation: ${err}`);
             }
         },
     },

@@ -14,7 +14,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     id: ID
     token: String
     avatar: String
-    hasPayment: Boolean
+    hasPayment: String
     didRequest: Boolean!
     playlists: [Playlist]
     lessons: [Lesson]
@@ -27,7 +27,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     name: String!
     avatar: String!
     contact: String!
-    hasPayment: Boolean!
+    hasPayment: String
     playlists(limit: Int!, page: Int!): Playlists
     lessons(limit: Int!, page: Int!): Lessons
     quizzes(limit: Int!, page: Int!): Quizzes
@@ -116,6 +116,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     deleteLesson(id: ID): Boolean!
     deletePlaylist(id: ID): Boolean!
     bookmarkLesson(id: ID!, viewer: String!): Boolean
+    addPayment(paymentId: String, viewer: String): Boolean
   }
 
   input LogInInput {

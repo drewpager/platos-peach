@@ -41,7 +41,6 @@ const logInViaGoogle = async (code, token, db, res) => {
             avatar: userAvatar,
             contact: userEmail,
             watched: [],
-            paymentId: "2020",
             playlists: [],
         },
     });
@@ -55,7 +54,6 @@ const logInViaGoogle = async (code, token, db, res) => {
                 avatar: userAvatar,
                 contact: userEmail,
                 watched: [],
-                paymentId: "1010",
                 playlists: [],
             });
             viewer = await db.users.findOne({ _id: updateResponse.insertedId });
@@ -131,13 +129,24 @@ exports.viewerResolvers = {
                 throw new Error(`Failed to log out user: ${err}`);
             }
         },
+        addPayment: async (viewer, { id }, { db }) => {
+            try {
+                const user = await db.users.findOneAndUpdate({ _id: viewer._id }, { paymentId: id });
+                viewer.paymentId = id;
+                console.log(viewer);
+                return user.ok;
+            }
+            catch (e) {
+                throw new Error(`Failed to save paymentID: ${e}`);
+            }
+        },
     },
     Viewer: {
         id: (viewer) => {
             return viewer._id;
         },
         hasPayment: (viewer) => {
-            return viewer.paymentId ? true : undefined;
+            return viewer.paymentId ? viewer.paymentId : undefined;
         },
         playlists: async (viewer, { limit, page }, { db }) => {
             try {
