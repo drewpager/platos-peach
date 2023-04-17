@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.viewerResolvers = void 0;
 const api_1 = require("../../../lib/api");
 const crypto_1 = __importDefault(require("crypto"));
+const utils_1 = require("../../../lib/utils");
 const cookieOptions = {
     httpOnly: true,
     sameSite: true,
@@ -140,12 +141,63 @@ exports.viewerResolvers = {
                 throw new Error(`Failed to save paymentID: ${e}`);
             }
         },
+        connectStripe: async (_root, { input }, { db, req }) => {
+            try {
+                const { code } = input;
+                let viewer = await (0, utils_1.authorize)(db, req);
+                if (!viewer) {
+                    throw new Error(`Viewer cannot be found!`);
+                }
+                const wallet = await api_1.Stripe.connect(code);
+                if (!wallet) {
+                    throw new Error("Stripe grant error");
+                }
+                const updateRes = await db.users.findOneAndUpdate({ _id: viewer._id }, { $set: { paymentId: wallet } });
+                if (!updateRes) {
+                    throw new Error(`Failed to update user with payment information`);
+                }
+                viewer = updateRes.value;
+                return {
+                    _id: viewer?._id,
+                    token: viewer?.token,
+                    avatar: viewer?.avatar,
+                    paymentId: viewer?.paymentId,
+                    didRequest: true,
+                };
+            }
+            catch (e) {
+                throw new Error(`Failed to connect with stripe: ${e}`);
+            }
+        },
+        disconnectStripe: async (_root, _args, { db, req }) => {
+            try {
+                let viewer = await (0, utils_1.authorize)(db, req);
+                if (!viewer) {
+                    throw new Error(`Failed to authorize viewer!`);
+                }
+                const updateRes = await db.users.findOneAndUpdate({ _id: viewer._id }, { $set: { paymentId: null } });
+                if (!updateRes.value) {
+                    throw new Error(`Viewer could not be updated`);
+                }
+                viewer = updateRes.value;
+                return {
+                    _id: viewer?._id,
+                    token: viewer?.token,
+                    avatar: viewer?.avatar,
+                    paymentId: viewer?.paymentId,
+                    didRequest: true,
+                };
+            }
+            catch (e) {
+                throw new Error(`Failed to disconnect Stripe: ${e}`);
+            }
+        },
     },
     Viewer: {
         id: (viewer) => {
             return viewer._id;
         },
-        hasPayment: (viewer) => {
+        paymentId: (viewer) => {
             return viewer.paymentId ? viewer.paymentId : undefined;
         },
         playlists: async (viewer, { limit, page }, { db }) => {

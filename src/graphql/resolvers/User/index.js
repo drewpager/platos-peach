@@ -25,7 +25,7 @@ exports.userResolvers = {
         id: (user) => {
             return user._id;
         },
-        hasPayment: async (user) => {
+        paymentId: (user) => {
             return user.paymentId;
         },
         playlists: async (user, { limit, page }, { db }) => {
@@ -117,9 +117,9 @@ exports.userResolvers = {
         },
     },
     Mutation: {
-        addPayment: async (_root, { id, userId }, { db }) => {
+        addPayment: async (_root, { paymentId, viewer }, { db }) => {
             try {
-                const userPay = await db.users.findOneAndUpdate({ _id: `${userId}` }, { $set: { paymentId: `${id}` } });
+                const userPay = await db.users.findOneAndUpdate({ _id: `${viewer}` }, { $set: { paymentId: `${paymentId}` } });
                 return userPay.value ? true : false;
             }
             catch (err) {

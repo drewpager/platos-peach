@@ -69,14 +69,25 @@ exports.playlistResolvers = {
             }
         },
         updatePlan: async (_root, { id, input }, { db }) => {
+            const ide = new mongodb_1.ObjectId(id);
             try {
-                const playlist = await db.playlists.findOneAndUpdate({ _id: new mongodb_1.ObjectId(id) }, input);
-                if (playlist.ok === 1) {
-                    return true;
+                const playlist = await db.playlists.findOneAndUpdate({ _id: ide }, {
+                    $set: {
+                        name: input.name,
+                        creator: input.creator,
+                        plan: input.plan,
+                    },
+                });
+                // if (!playlist) {
+                //   throw new Error(`Playlist Database update failed`);
+                // }
+                const insertedResult = playlist
+                    ? await db.playlists.findOne({ _id: ide })
+                    : false;
+                if (!insertedResult) {
+                    throw new Error(`Sorry, but I Failed to update this playlist!`);
                 }
-                else {
-                    return false;
-                }
+                return insertedResult;
             }
             catch (e) {
                 throw new Error(`Failed to update playlist ${e}`);
