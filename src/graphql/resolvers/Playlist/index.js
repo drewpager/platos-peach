@@ -87,7 +87,7 @@ exports.playlistResolvers = {
                 if (!insertedResult) {
                     throw new Error(`Sorry, but I Failed to update this playlist!`);
                 }
-                return insertedResult;
+                return { ...insertedResult };
             }
             catch (e) {
                 throw new Error(`Failed to update playlist ${e}`);

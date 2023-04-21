@@ -153,7 +153,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
   }
 
   input FullLessonInput {
-    _id: ID
+    id: ID
     category: [String]
     title: String
     meta: String
@@ -176,14 +176,14 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
   }
 
   input FullLessonQuiz {
-    _id: ID
+    id: ID
     title: String
     questions: [QuizQuestions]
     creator: String
   }
 
   input Plan {
-    _id: ID
+    id: ID
     category: [String]
     title: String
     meta: String
