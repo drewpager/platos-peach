@@ -7,6 +7,7 @@ exports.viewerResolvers = void 0;
 const api_1 = require("../../../lib/api");
 const crypto_1 = __importDefault(require("crypto"));
 const utils_1 = require("../../../lib/utils");
+// TODO: When in production w/ HTTPS, add secure setting
 const cookieOptions = {
     httpOnly: true,
     sameSite: true,
