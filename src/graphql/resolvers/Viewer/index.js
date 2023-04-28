@@ -42,6 +42,7 @@ const logInViaGoogle = async (code, token, db, res) => {
             name: userName,
             avatar: userAvatar,
             contact: userEmail,
+            paymentId: "undefined",
             watched: [],
             playlists: [],
         },
@@ -55,6 +56,7 @@ const logInViaGoogle = async (code, token, db, res) => {
                 name: userName,
                 avatar: userAvatar,
                 contact: userEmail,
+                paymentId: "undefined",
                 watched: [],
                 playlists: [],
             });
