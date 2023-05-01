@@ -183,7 +183,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
   }
 
   input Plan {
-    id: ID
+    _id: ID
     category: [String]
     title: String
     meta: String
