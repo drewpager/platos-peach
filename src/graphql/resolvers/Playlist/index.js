@@ -47,7 +47,7 @@ exports.playlistResolvers = {
         },
     },
     Mutation: {
-        lessonPlan: async (_root, { input }, { db }) => {
+        lessonPlan: async (_root, { input, viewerId }, { db }) => {
             const id = new mongodb_1.ObjectId();
             try {
                 const insertResult = await db.playlists.insertOne({
@@ -60,8 +60,7 @@ exports.playlistResolvers = {
                 if (!insertedResult) {
                     throw new Error("Failed to insert new lesson plan!");
                 }
-                // TODO: get viewer id instead of hardcoded value
-                await db.users.updateOne({ _id: "116143759549242008910" }, { $push: { playlists: insertedResult } });
+                await db.users.updateOne({ _id: viewerId }, { $push: { playlists: insertedResult } });
                 return insertedResult;
             }
             catch (e) {

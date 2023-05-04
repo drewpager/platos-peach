@@ -108,7 +108,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     disconnectStripe: Viewer!
     createLesson(input: CreateLessonInput): Lesson!
     createQuiz(input: CreateQuizInput): Quiz!
-    lessonPlan(input: LessonPlanInput): Playlist!
+    lessonPlan(input: LessonPlanInput, viewerId: ID): Playlist!
     updatePlan(input: LessonPlanInput, id: ID): Playlist!
     deleteLesson(id: ID): Boolean!
     deletePlaylist(id: ID): Boolean!

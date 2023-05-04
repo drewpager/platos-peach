@@ -29,7 +29,7 @@ const mount = async (app) => {
     app.use((0, cookie_parser_1.default)(process.env.SECRET));
     app.use((0, compression_1.default)());
     app.use((0, cors_1.default)(corsOptions));
-    // UNCOMMENT FOR PRODUCTION
+    // DEPLOY TODO: UNCOMMENT FOR PRODUCTION
     app.use(express_1.default.static(`${__dirname}/`));
     app.get("/*", (_req, res) => res.sendFile(`${__dirname}/index.html`));
     const server = new apollo_server_express_1.ApolloServer({
