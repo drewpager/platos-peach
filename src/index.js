@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const stripe = require("stripe")(`${process.env.S_SECRET_KEY}`);
+const enforce = require("express-sslify");
 const express_1 = __importDefault(require("express"));
 const apollo_server_express_1 = require("apollo-server-express");
 // import { ApolloServer } from "@apollo/server";
@@ -30,6 +31,7 @@ const mount = async (app) => {
     app.use((0, compression_1.default)());
     app.use((0, cors_1.default)(corsOptions));
     // DEPLOY TODO: UNCOMMENT FOR PRODUCTION
+    app.use(enforce.HTTPS({ trustProtoHeader: true }));
     app.use(express_1.default.static(`${__dirname}/`));
     app.get("/*", (_req, res) => res.sendFile(`${__dirname}/index.html`));
     const server = new apollo_server_express_1.ApolloServer({
