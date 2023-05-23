@@ -1,11 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.f05f1880.css",
-    "main.js": "/static/js/main.15dbc382.js",
+    "main.css": "/static/css/main.6e5d2995.css",
+    "main.js": "/static/js/main.221053f6.js",
     "static/js/787.ee616d6a.chunk.js": "/static/js/787.ee616d6a.chunk.js",
     "static/media/classroom.jpg": "/static/media/classroom.8d5c60f200734b0b28c9.jpg",
-    "static/media/drag-and-drop.gif": "/static/media/drag-and-drop.2fb9cd5bc4df6a0a676e.gif",
+    "static/media/how-it-works-1.png": "/static/media/how-it-works-1.8b1ca49f19d19e891dc3.png",
+    "static/media/how-it-works-4.png": "/static/media/how-it-works-4.25b3564df53548c5a2c2.png",
     "static/media/noto-serif-all-400-normal.woff": "/static/media/noto-serif-all-400-normal.cc8d505e17e9106c7bb6.woff",
+    "static/media/how-it-works-3.png": "/static/media/how-it-works-3.b0410b11c7a26da3f86f.png",
+    "static/media/how-it-works-2.png": "/static/media/how-it-works-2.bec5ac189ec051f9a337.png",
     "static/media/noto-serif-latin-ext-400-normal.woff2": "/static/media/noto-serif-latin-ext-400-normal.dacb5b2801ec86ed9cd4.woff2",
     "static/media/peach-logo.svg": "/static/media/peach-logo.5002c8f528fa52cc1d8955932c39a683.svg",
     "static/media/noto-serif-cyrillic-ext-400-normal.woff2": "/static/media/noto-serif-cyrillic-ext-400-normal.3b1a6b81ad2880cbfa11.woff2",
@@ -15,12 +18,12 @@
     "static/media/noto-serif-greek-ext-400-normal.woff2": "/static/media/noto-serif-greek-ext-400-normal.42a9f5d91dcd0b514f8e.woff2",
     "static/media/noto-serif-vietnamese-400-normal.woff2": "/static/media/noto-serif-vietnamese-400-normal.f1c754dda31c5a66e5dc.woff2",
     "index.html": "/index.html",
-    "main.f05f1880.css.map": "/static/css/main.f05f1880.css.map",
-    "main.15dbc382.js.map": "/static/js/main.15dbc382.js.map",
+    "main.6e5d2995.css.map": "/static/css/main.6e5d2995.css.map",
+    "main.221053f6.js.map": "/static/js/main.221053f6.js.map",
     "787.ee616d6a.chunk.js.map": "/static/js/787.ee616d6a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f05f1880.css",
-    "static/js/main.15dbc382.js"
+    "static/css/main.6e5d2995.css",
+    "static/js/main.221053f6.js"
   ]
 }

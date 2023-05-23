@@ -52,5 +52,19 @@ exports.quizResolvers = {
                 throw new Error(`Failed with error: ${err}`);
             }
         },
+        deleteQuiz: async (_root, { id }, { db }) => {
+            try {
+                const deletedQuiz = await db.quizzes.deleteOne({
+                    _id: new mongodb_1.ObjectId(id),
+                });
+                if (!deletedQuiz) {
+                    throw new Error("Failed to delete quiz");
+                }
+                return deletedQuiz.acknowledged;
+            }
+            catch (error) {
+                throw new Error(`Failed to start deleting quiz: ${error}`);
+            }
+        },
     },
 };
