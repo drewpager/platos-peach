@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.64a94ed2.css",
-    "main.js": "/static/js/main.841bc556.js",
+    "main.css": "/static/css/main.9859971a.css",
+    "main.js": "/static/js/main.edd252c0.js",
     "static/js/787.ee616d6a.chunk.js": "/static/js/787.ee616d6a.chunk.js",
     "static/media/how-it-works-1.png": "/static/media/how-it-works-1.8b1ca49f19d19e891dc3.png",
     "static/media/how-it-works-4.png": "/static/media/how-it-works-4.25b3564df53548c5a2c2.png",
@@ -17,12 +17,12 @@
     "static/media/noto-serif-greek-ext-400-normal.woff2": "/static/media/noto-serif-greek-ext-400-normal.42a9f5d91dcd0b514f8e.woff2",
     "static/media/noto-serif-vietnamese-400-normal.woff2": "/static/media/noto-serif-vietnamese-400-normal.f1c754dda31c5a66e5dc.woff2",
     "index.html": "/index.html",
-    "main.64a94ed2.css.map": "/static/css/main.64a94ed2.css.map",
-    "main.841bc556.js.map": "/static/js/main.841bc556.js.map",
+    "main.9859971a.css.map": "/static/css/main.9859971a.css.map",
+    "main.edd252c0.js.map": "/static/js/main.edd252c0.js.map",
     "787.ee616d6a.chunk.js.map": "/static/js/787.ee616d6a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.64a94ed2.css",
-    "static/js/main.841bc556.js"
+    "static/css/main.9859971a.css",
+    "static/js/main.edd252c0.js"
   ]
 }
