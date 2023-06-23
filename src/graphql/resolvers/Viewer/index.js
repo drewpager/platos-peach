@@ -7,6 +7,7 @@ exports.viewerResolvers = void 0;
 const api_1 = require("../../../lib/api");
 const crypto_1 = __importDefault(require("crypto"));
 const utils_1 = require("../../../lib/utils");
+const stripe = require("stripe")(`${process.env.S_SECRET_KEY}`);
 // DEPLOY TODO: When in production w/ HTTPS, add secure setting
 const cookieOptions = {
     httpOnly: true,
@@ -33,6 +34,8 @@ const logInViaGoogle = async (code, token, db, res) => {
         : null;
     const userAvatar = userPhotosList && userPhotosList[0].url ? userPhotosList[0].url : null;
     const userEmail = userEmailList && userEmailList[0].value ? userEmailList[0].value : null;
+    const existingUser = await db.users.findOne({ _id: userId?.toString() });
+    const userPaymentId = existingUser ? `${existingUser.paymentId}` : null;
     if (!userName || !userId || !userAvatar || !userEmail) {
         throw new Error("Google Log In Error!");
     }
@@ -42,7 +45,7 @@ const logInViaGoogle = async (code, token, db, res) => {
             name: userName,
             avatar: userAvatar,
             contact: userEmail,
-            paymentId: "undefined",
+            paymentId: userPaymentId,
             watched: [],
             playlists: [],
         },
@@ -133,52 +136,75 @@ exports.viewerResolvers = {
                 throw new Error(`Failed to log out user: ${err}`);
             }
         },
-        addPayment: async (viewer, { id }, { db }) => {
-            try {
-                const user = await db.users.findOneAndUpdate({ _id: viewer._id }, { paymentId: id });
-                viewer.paymentId = id;
-                console.log(viewer);
-                return user.ok;
-            }
-            catch (e) {
-                throw new Error(`Failed to save paymentID: ${e}`);
-            }
-        },
-        connectStripe: async (_root, { input }, { db, req }) => {
-            try {
-                const { code } = input;
-                let viewer = await (0, utils_1.authorize)(db, req);
-                if (!viewer) {
-                    throw new Error(`Viewer cannot be found!`);
-                }
-                const wallet = await api_1.Stripe.connect(code);
-                if (!wallet) {
-                    throw new Error("Stripe grant error");
-                }
-                const updateRes = await db.users.findOneAndUpdate({ _id: viewer._id }, { $set: { paymentId: wallet } });
-                if (!updateRes) {
-                    throw new Error(`Failed to update user with payment information`);
-                }
-                viewer = updateRes.value;
-                return {
-                    _id: viewer?._id,
-                    token: viewer?.token,
-                    avatar: viewer?.avatar,
-                    paymentId: viewer?.paymentId,
-                    didRequest: true,
-                };
-            }
-            catch (e) {
-                throw new Error(`Failed to connect with stripe: ${e}`);
-            }
-        },
+        // addPayment: async (
+        //   viewer: Viewer,
+        //   { id }: PaymentArgs,
+        //   { db }: { db: Database }
+        // ): Promise<Viewer | string> => {
+        //   const user = await db.users.findOne({ _id: `${viewer._id}` });
+        //   const customer = await stripe.customers.search({
+        //     query: `email:\'${user?.contact}\'`,
+        //   });
+        //   try {
+        //     if (!!customer) {
+        //       const customerPay = await db.users.findOneAndUpdate(
+        //         { _id: `${viewer._id}` },
+        //         { $set: { paymentId: `${customer.data[0].id}` } }
+        //       );
+        //       viewer.paymentId = customer.data[0].id;
+        //       return customerPay.value ? `${viewer.paymentId}` : "undefined";
+        //     }
+        //     const userPay = await db.users.findOneAndUpdate(
+        //       { _id: `${viewer._id}` },
+        //       { $set: { paymentId: `${id}` } }
+        //     );
+        //     viewer.paymentId = id;
+        //     return userPay.value ? `${id}` : "undefined";
+        //   } catch (err) {
+        //     throw new Error(`Error adding payment in Mutation: ${err}`);
+        //   }
+        // },
+        // connectStripe: async (
+        //   _root: undefined,
+        //   { input }: ConnectStripeArgs,
+        //   { db, req }: { db: Database; req: Request }
+        // ): Promise<Viewer> => {
+        //   try {
+        //     const { code } = input;
+        //     let viewer = await authorize(db, req);
+        //     if (!viewer) {
+        //       throw new Error(`Viewer cannot be found!`);
+        //     }
+        //     const wallet = await Stripe.connect(code);
+        //     if (!wallet) {
+        //       throw new Error("Stripe grant error");
+        //     }
+        //     const updateRes = await db.users.findOneAndUpdate(
+        //       { _id: viewer._id },
+        //       { $set: { paymentId: `${wallet}` } }
+        //     );
+        //     if (!updateRes) {
+        //       throw new Error(`Failed to update user with payment information`);
+        //     }
+        //     viewer = updateRes.value;
+        //     return {
+        //       _id: viewer?._id,
+        //       token: viewer?.token,
+        //       avatar: viewer?.avatar,
+        //       paymentId: wallet,
+        //       didRequest: true,
+        //     };
+        //   } catch (e) {
+        //     throw new Error(`Failed to connect with stripe: ${e}`);
+        //   }
+        // },
         disconnectStripe: async (_root, _args, { db, req }) => {
             try {
                 let viewer = await (0, utils_1.authorize)(db, req);
                 if (!viewer) {
                     throw new Error(`Failed to authorize viewer!`);
                 }
-                const updateRes = await db.users.findOneAndUpdate({ _id: viewer._id }, { $set: { paymentId: null } });
+                const updateRes = await db.users.findOneAndUpdate({ _id: viewer._id }, { $set: { paymentId: "undefined" } });
                 if (!updateRes.value) {
                     throw new Error(`Viewer could not be updated`);
                 }

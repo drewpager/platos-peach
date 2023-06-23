@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userResolvers = void 0;
 const utils_1 = require("../../../lib/utils");
+const stripe = require("stripe")(`${process.env.S_SECRET_KEY}`);
 exports.userResolvers = {
     Query: {
         user: async (_root, { id }, { db, req }) => {
@@ -115,12 +116,50 @@ exports.userResolvers = {
                 throw new Error(`Failed to bookmark anything ${e}`);
             }
         },
+        package: (user) => {
+            return user.package;
+        },
     },
     Mutation: {
-        addPayment: async (_root, { paymentId, viewer }, { db }) => {
+        addPayment: async (_root, { id }, { db }) => {
+            // const viewerId = "118302753872778003967";
+            const viewerId = id;
             try {
-                const userPay = await db.users.findOneAndUpdate({ _id: `${viewer}` }, { $set: { paymentId: `${paymentId}` } });
-                return userPay.value ? true : false;
+                const userObj = await db.users.findOne({
+                    _id: viewerId,
+                });
+                if (!userObj) {
+                    throw new Error("User can't be found");
+                }
+                const contactEmail = userObj.contact;
+                const customer = await stripe.customers.search({
+                    query: `email:\'${contactEmail}\'`,
+                });
+                if (!customer) {
+                    throw new Error("Customer can't be found");
+                }
+                const subscriptions = await stripe.customers.retrieve(`${customer.data[0].id}`, {
+                    expand: ["subscriptions"],
+                });
+                const amount = subscriptions.subscriptions.data[0].plan.amount;
+                const cadence = subscriptions.subscriptions.data[0].plan.interval;
+                const status = subscriptions.subscriptions.data[0].status;
+                const since = subscriptions.subscriptions.data[0].created;
+                const trial_end = subscriptions.subscriptions.data[0].trial_end;
+                const customerId = customer && customer.data[0].id;
+                const customerPay = await db.users.findOneAndUpdate({ _id: `${viewerId}` }, {
+                    $set: {
+                        paymentId: customerId,
+                        package: {
+                            amount: amount,
+                            cadence: cadence,
+                            status: status,
+                            since: since,
+                            trialEnd: trial_end,
+                        },
+                    },
+                });
+                return customerPay.value ? customerId : "undefined";
             }
             catch (err) {
                 throw new Error(`Error adding payment in Mutation: ${err}`);

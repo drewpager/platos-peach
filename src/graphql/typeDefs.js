@@ -28,10 +28,19 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     avatar: String!
     contact: String!
     paymentId: String
+    package: Package
     playlists(limit: Int!, page: Int!): Playlists
     lessons(limit: Int!, page: Int!): Lessons
     quizzes(limit: Int!, page: Int!): Quizzes
     bookmarks: [Lesson]
+  }
+
+  type Package {
+    amount: Int
+    cadence: String
+    status: String
+    since: Int
+    trialEnd: Int
   }
 
   type Lesson {
@@ -104,7 +113,6 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
   type Mutation {
     logIn(input: LogInInput): Viewer!
     logOut: Viewer!
-    connectStripe(input: ConnectStripeInput!): Viewer!
     disconnectStripe: Viewer!
     createLesson(input: CreateLessonInput): Lesson!
     createQuiz(input: CreateQuizInput): Quiz!
@@ -114,14 +122,10 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     deletePlaylist(id: ID): Boolean!
     deleteQuiz(id: ID): Boolean!
     bookmarkLesson(id: ID!, viewer: String!): Boolean
-    addPayment(paymentId: String, viewer: String): Boolean
+    addPayment(id: ID!): Viewer
   }
 
   input LogInInput {
-    code: String!
-  }
-
-  input ConnectStripeInput {
     code: String!
   }
 
