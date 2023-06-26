@@ -51,16 +51,19 @@ const mount = async (app) => {
     //   });
     //   console.log(values.subscriptions.data[0].plan.amount);
     // }
-    const contact = "drewpagerrr@gmail.com";
-    const customer = await stripe.customers.search({
-        query: `email:\'${contact}\'`,
-    });
-    if (customer) {
-        const subscriptions = await stripe.customers.retrieve(`${customer.data[0].id}`, {
-            expand: ["subscriptions"],
-        });
-        console.log(subscriptions.subscriptions.data[0].plan.amount);
-    }
+    // const contact = "drewpagerrr@gmail.com";
+    // const customer = await stripe.customers.search({
+    //   query: `email:\'${contact}\'`,
+    // });
+    // if (customer) {
+    //   const subscriptions = await stripe.customers.retrieve(
+    //     `${customer.data[0].id}`,
+    //     {
+    //       expand: ["subscriptions"],
+    //     }
+    //   );
+    //   console.log(subscriptions.subscriptions.data[0].plan.amount);
+    // }
     // app.get("/config", (req, res) => {
     //   res.send({
     //     publishableKey: `${process.env.S_PUBLISHABLE_KEY}`,
