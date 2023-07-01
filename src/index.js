@@ -52,17 +52,25 @@ const mount = async (app) => {
     //   console.log(values.subscriptions.data[0].plan.amount);
     // }
     // const contact = "drewpagerrr@gmail.com";
+    // const contact = "drew@greadings.com";
     // const customer = await stripe.customers.search({
     //   query: `email:\'${contact}\'`,
     // });
+    // if (!customer) {
+    //   console.log("no customer");
+    // }
     // if (customer) {
-    //   const subscriptions = await stripe.customers.retrieve(
-    //     `${customer.data[0].id}`,
-    //     {
-    //       expand: ["subscriptions"],
-    //     }
-    //   );
-    //   console.log(subscriptions.subscriptions.data[0].plan.amount);
+    //   if (customer.data.length === 0) {
+    //     console.log("customer not found");
+    //   } else {
+    //     const subscriptions = await stripe.customers.retrieve(
+    //       `${customer.data[0].id}`,
+    //       {
+    //         expand: ["subscriptions"],
+    //       }
+    //     );
+    //     console.log(subscriptions);
+    //   }
     // }
     // app.get("/config", (req, res) => {
     //   res.send({
