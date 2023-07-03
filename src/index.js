@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
+const nodemailer = require("nodemailer");
 const stripe = require("stripe")(`${process.env.S_SECRET_KEY}`);
 const enforce = require("express-sslify");
 const express_1 = __importDefault(require("express"));
@@ -34,6 +35,22 @@ const mount = async (app) => {
     app.use(enforce.HTTPS({ trustProtoHeader: true }));
     app.use(express_1.default.static(`${__dirname}/`));
     app.get("/*", (_req, res) => res.sendFile(`${__dirname}/index.html`));
+    const contactEmail = nodemailer.createTransport({
+        host: "smtp-relay.sendinblue.com",
+        port: 587,
+        auth: {
+            user: "drew@greadings.com",
+            pass: `${process.env.EMAILPASSWORD}`,
+        },
+    });
+    contactEmail.verify((error) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            console.log("Ready to Send");
+        }
+    });
     const server = new apollo_server_express_1.ApolloServer({
         typeDefs: [graphql_1.typeDefs, graphql_scalars_1.typeDefs],
         resolvers: [graphql_1.resolvers, graphql_scalars_1.resolvers],
