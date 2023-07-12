@@ -143,11 +143,24 @@ exports.lessonResolvers = {
                 const data = await db.lessons.findOne({
                     _id: new mongodb_1.ObjectId(id),
                 });
-                const bookmark = await db.users.updateOne({ _id: viewer }, { $push: { bookmarks: data } });
-                if (!bookmark) {
-                    throw new Error("Failed to bookmark lesson!");
+                const exists = await db.users.findOne({ _id: viewer });
+                if (data &&
+                    exists?.bookmarks
+                        ?.map((lesson) => lesson["_id"].toString() === `${data._id}`)
+                        .includes(true)) {
+                    const unBookmark = await db.users.updateOne({ _id: viewer }, { $pull: { bookmarks: data } });
+                    if (!unBookmark) {
+                        throw new Error("Failed to unbookmark lesson!");
+                    }
+                    return unBookmark ? "unbookmarked" : "null";
                 }
-                return bookmark.acknowledged;
+                else {
+                    const bookmark = await db.users.updateOne({ _id: viewer }, { $push: { bookmarks: data } });
+                    if (!bookmark) {
+                        throw new Error("Failed to bookmark lesson!");
+                    }
+                    return bookmark ? "bookmarked" : "null";
+                }
             }
             catch (error) {
                 throw new Error(`Failed to bookmark lesson entirely: ${error}`);
