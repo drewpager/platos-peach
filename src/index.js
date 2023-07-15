@@ -35,21 +35,26 @@ const mount = async (app) => {
     app.use(enforce.HTTPS({ trustProtoHeader: true }));
     app.use(express_1.default.static(`${__dirname}/`));
     app.get("/*", (_req, res) => res.sendFile(`${__dirname}/index.html`));
-    const contactEmail = nodemailer.createTransport({
-        host: "smtp-relay.sendinblue.com",
-        port: 587,
-        auth: {
-            user: "drew@greadings.com",
-            pass: `${process.env.EMAILPASSWORD}`,
-        },
-    });
-    contactEmail.verify((error) => {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            console.log("Ready to Send");
-        }
+    app.post("/contact", async (req, res) => {
+        console.log(req.body);
+        const contactEmail = nodemailer.createTransport({
+            host: "smtp-relay.sendinblue.com",
+            port: 587,
+            auth: {
+                user: "drew@greadings.com",
+                pass: `${process.env.EMAILPASSWORD}`,
+            },
+        });
+        contactEmail.sendMail(req.body, (error, info) => {
+            if (error) {
+                console.log(error);
+                res.send("error");
+            }
+            else {
+                console.log("Email sent: " + info.response);
+                res.send("success");
+            }
+        });
     });
     const server = new apollo_server_express_1.ApolloServer({
         typeDefs: [graphql_1.typeDefs, graphql_scalars_1.typeDefs],
