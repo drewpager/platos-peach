@@ -8,7 +8,7 @@ const api_1 = require("../../../lib/api");
 const crypto_1 = __importDefault(require("crypto"));
 const utils_1 = require("../../../lib/utils");
 const stripe = require("stripe")(`${process.env.S_SECRET_KEY}`);
-// DEPLOY TODO: When in production w/ HTTPS, add secure setting
+// When in production w/ HTTPS, add secure setting
 const cookieOptions = {
     httpOnly: true,
     sameSite: true,
