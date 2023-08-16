@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c87c341c.css",
-    "main.js": "/static/js/main.a4e47fe6.js",
+    "main.css": "/static/css/main.1e2e0082.css",
+    "main.js": "/static/js/main.687c3296.js",
     "static/js/787.ee616d6a.chunk.js": "/static/js/787.ee616d6a.chunk.js",
     "static/media/how-it-works-1.png": "/static/media/how-it-works-1.8b1ca49f19d19e891dc3.png",
     "static/media/how-it-works-4.png": "/static/media/how-it-works-4.25b3564df53548c5a2c2.png",
@@ -18,12 +18,12 @@
     "static/media/noto-serif-vietnamese-400-normal.woff2": "/static/media/noto-serif-vietnamese-400-normal.f1c754dda31c5a66e5dc.woff2",
     "index.html": "/index.html",
     "static/media/pipe.svg": "/static/media/pipe.1350c83d676297c59892b42e1f7ac8b2.svg",
-    "main.c87c341c.css.map": "/static/css/main.c87c341c.css.map",
-    "main.a4e47fe6.js.map": "/static/js/main.a4e47fe6.js.map",
+    "main.1e2e0082.css.map": "/static/css/main.1e2e0082.css.map",
+    "main.687c3296.js.map": "/static/js/main.687c3296.js.map",
     "787.ee616d6a.chunk.js.map": "/static/js/787.ee616d6a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c87c341c.css",
-    "static/js/main.a4e47fe6.js"
+    "static/css/main.1e2e0082.css",
+    "static/js/main.687c3296.js"
   ]
 }
