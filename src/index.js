@@ -32,9 +32,9 @@ const mount = async (app) => {
     app.use((0, compression_1.default)());
     app.use((0, cors_1.default)(corsOptions));
     // DEPLOY TODO: UNCOMMENT FOR PRODUCTION
-    app.use(enforce.HTTPS({ trustProtoHeader: true }));
-    app.use(express_1.default.static(`${__dirname}/`));
-    app.get("/*", (_req, res) => res.sendFile(`${__dirname}/index.html`));
+    // app.use(enforce.HTTPS({ trustProtoHeader: true }));
+    // app.use(express.static(`${__dirname}/`));
+    // app.get("/*", (_req, res) => res.sendFile(`${__dirname}/index.html`));
     app.post("/contact", async (req, res) => {
         console.log(req.body);
         const contactEmail = nodemailer.createTransport({
