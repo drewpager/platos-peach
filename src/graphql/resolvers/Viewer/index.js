@@ -4,10 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.viewerResolvers = void 0;
+const mongodb_1 = require("mongodb");
 const api_1 = require("../../../lib/api");
 const crypto_1 = __importDefault(require("crypto"));
 const utils_1 = require("../../../lib/utils");
 const stripe = require("stripe")(`${process.env.S_SECRET_KEY}`);
+const bcrypt = require("bcrypt");
 // When in production w/ HTTPS, add secure setting
 const cookieOptions = {
     httpOnly: true,
@@ -84,14 +86,67 @@ const logInViaGoogle = async (code, token, db, res) => {
     return viewer;
 };
 const logInViaCookie = async (token, db, req, res) => {
+    const userRes = await db.users.findOne({ _id: req.signedCookies.viewer });
+    if (userRes?.token && userRes.token.length > 33) {
+        // res.cookie("viewer", userRes._id, { ...cookieOptions });
+        return userRes;
+    }
     const updateCook = await db.users.findOneAndUpdate({ _id: req.signedCookies.viewer }, { $set: { token } });
     const viewer = updateCook.value;
-    if (!viewer) {
+    if (!viewer || !userRes) {
         res.clearCookie("viewer", { ...cookieOptions });
     }
     else {
         return viewer;
     }
+};
+const logInViaEmail = async ({ input }, res, db) => {
+    if (!input?.email?.length || !input?.password?.length) {
+        throw new Error("Please enter your email and password!");
+    }
+    const user = await db?.users?.findOne({ contact: `${input?.email}` });
+    if (user) {
+        const passwordCorrect = await bcrypt.compare(input.password, user.token);
+        if (passwordCorrect) {
+            res.cookie("viewer", user._id, {
+                ...cookieOptions,
+                maxAge: 365 * 24 * 60 * 60 * 1000,
+            });
+            return user;
+        }
+        if (!passwordCorrect) {
+            throw new Error("Invalid Password or Combination!");
+        }
+        throw new Error("Email already in use. Try logging in with your password or using Google to login instead.");
+    }
+    const userId = new mongodb_1.ObjectId().toHexString();
+    const userName = input.email.split("@")[0];
+    const userPass = await bcrypt.hash(input.password, 10);
+    const userAvatar = "https://img.freepik.com/free-icon/user-image-with-black-background_318-34564.jpg";
+    // const token = crypto.randomBytes(16).toString("hex");
+    const insertUser = await db.users.insertOne({
+        _id: userId,
+        token: userPass,
+        name: userName,
+        avatar: userAvatar,
+        contact: input.email,
+        paymentId: "undefined",
+        watched: [],
+        playlists: [],
+        bookmarks: [],
+        lessons: [],
+    });
+    const viewer = await db.users.findOne({ _id: insertUser.insertedId });
+    if (viewer) {
+        res.cookie("viewer", userId, {
+            ...cookieOptions,
+            maxAge: 365 * 24 * 60 * 60 * 1000,
+        });
+    }
+    else {
+        throw new Error("Failed to return viewer object!");
+    }
+    return viewer;
 };
 exports.viewerResolvers = {
     Query: {
@@ -107,11 +162,24 @@ exports.viewerResolvers = {
     Mutation: {
         logIn: async (_root, { input }, { db, req, res }) => {
             try {
+                if (!input?.code && input?.email && input?.password) {
+                    const email = input?.email;
+                    const password = input?.password;
+                    const emailInput = { input: { email: email, password: password } };
+                    const emailLogin = await logInViaEmail(emailInput, res, db);
+                    return {
+                        _id: emailLogin?._id,
+                        token: emailInput?.input?.password,
+                        avatar: emailLogin?.avatar,
+                        paymentId: emailLogin?.paymentId,
+                        didRequest: true,
+                    };
+                }
                 const code = input ? input.code : null;
-                const token = crypto_1.default.randomBytes(16).toString("hex");
+                const tokener = crypto_1.default.randomBytes(16).toString("hex");
                 const viewer = code
-                    ? await logInViaGoogle(code, token, db, res)
-                    : await logInViaCookie(token, db, req, res);
+                    ? await logInViaGoogle(code, tokener, db, res)
+                    : await logInViaCookie(tokener, db, req, res);
                 if (!viewer) {
                     return { didRequest: true };
                 }
@@ -124,7 +192,7 @@ exports.viewerResolvers = {
                 };
             }
             catch (error) {
-                throw new Error(`Failed to log in: ${error}`);
+                throw new Error(`${error}`);
             }
         },
         logOut: (_root, _args, { res }) => {

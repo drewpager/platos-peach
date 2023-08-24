@@ -21,6 +21,21 @@ exports.userResolvers = {
                 throw new Error(`Failed to query user: ${error}`);
             }
         },
+        allUsers: async (_root, { page, limit }, { db }) => {
+            const data = {
+                total: 0,
+                result: [],
+                totalCount: 0,
+            };
+            let cursor = await db.users.find({});
+            const count = cursor;
+            cursor = cursor.skip(page > 1 ? (page - 1) * limit : 0);
+            cursor = cursor.limit(limit);
+            data.total = await cursor.count();
+            data.result = await cursor.toArray();
+            data.totalCount = await count.count();
+            return data;
+        },
     },
     User: {
         id: (user) => {

@@ -99,6 +99,12 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     totalCount: Int!
   }
 
+  type Users {
+    total: Int!
+    result: [User!]!
+    totalCount: Int!
+  }
+
   type Query {
     authUrl: String!
     user(id: ID!): User!
@@ -106,6 +112,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     playlist(id: ID!): Playlist!
     allplaylists(limit: Int!, page: Int!): Playlists!
     allLessons(limit: Int!, page: Int!): Lessons!
+    allUsers(limit: Int!, page: Int!): Users!
     quiz(id: ID!): Quiz!
     allquizzes(limit: Int!, page: Int!): Quizzes!
   }
@@ -126,7 +133,9 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
   }
 
   input LogInInput {
-    code: String!
+    code: String
+    email: String
+    password: String
   }
 
   input CreateLessonInput {
