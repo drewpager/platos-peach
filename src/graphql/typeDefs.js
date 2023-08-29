@@ -128,6 +128,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     deleteLesson(id: ID): Boolean!
     deletePlaylist(id: ID): Boolean!
     deleteQuiz(id: ID): Boolean!
+    deleteAllBookmarks(id: ID): String
     bookmarkLesson(id: ID!, viewer: String!): String
     addPayment(id: ID!): Viewer
   }

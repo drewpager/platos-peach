@@ -201,5 +201,19 @@ exports.userResolvers = {
                 throw new Error(`Error adding payment in Mutation: ${err}`);
             }
         },
+        deleteAllBookmarks: async (user, { id }, { db }) => {
+            try {
+                if (user?.bookmarks?.length === 0) {
+                    throw new Error("No bookmarks to delete");
+                }
+                const deleteBookmarks = await db.users.findOneAndUpdate({ _id: `${id}` }, { $set: { bookmarks: [] } });
+                return deleteBookmarks.ok
+                    ? "Bookmarks deleted"
+                    : "Failed to delete bookmarks";
+            }
+            catch (error) {
+                throw new Error(`Failed to delete all bookmarks: ${error}`);
+            }
+        },
     },
 };
