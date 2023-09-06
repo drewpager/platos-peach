@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.lessonResolvers = void 0;
-const index_1 = require("../../../lib/utils/index");
 const mongodb_1 = require("mongodb");
 const graphql_1 = require("graphql");
 const dateRegex = 
@@ -43,9 +42,9 @@ const verifyCreateLessonInput = ({ title, category, meta, video, startDate, endD
     if (!dateRegex.test(endDate)) {
         throw new Error("Please format date as Year-Month-Day (YYYY-MM-DD)");
     }
-    // if (meta.length < 160) {
-    //   throw new Error("Please add more information to provide students with context about this lesson.")
-    // }
+    if (meta.length < 1) {
+        throw new Error("Please add a brief description to provide students with context about this lesson.");
+    }
     if (video.length < 1) {
         throw new Error("Please add a video!");
     }
@@ -84,22 +83,27 @@ exports.lessonResolvers = {
         id: (playlist) => {
             return playlist._id;
         },
-        creator: async (playlist, _args, { db, req }) => {
-            try {
-                const creator = await db.users.findOne({ _id: playlist.creator });
-                if (!creator) {
-                    throw new Error("Creator can't be found!");
-                }
-                const viewer = await (0, index_1.authorize)(db, req);
-                if (viewer && viewer._id === playlist.creator) {
-                    playlist.authorized = true;
-                }
-                return creator._id;
-            }
-            catch (err) {
-                throw new Error(`You are either not the creator or not logged in: ${err}!`);
-            }
-        },
+        // creator: async (
+        //   playlist: Playlist,
+        //   _args: Record<string, unknown>,
+        //   { db, req }: { db: Database; req: Request }
+        // ): Promise<string> => {
+        //   try {
+        //     const creator = await db.users.findOne({ _id: playlist.creator });
+        //     if (!creator) {
+        //       throw new Error("Creator can't be found!");
+        //     }
+        //     const viewer = await authorize(db, req);
+        //     if (viewer && viewer._id === playlist.creator) {
+        //       playlist.authorized = true;
+        //     }
+        //     return creator._id;
+        //   } catch (err) {
+        //     throw new Error(
+        //       `You are either not the creator or not logged in: ${err}!`
+        //     );
+        //   }
+        // },
     },
     Mutation: {
         createLesson: async (_root, { input }, { db }) => {

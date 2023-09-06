@@ -131,6 +131,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     deleteAllBookmarks(id: ID): String
     bookmarkLesson(id: ID!, viewer: String!): String
     addPayment(id: ID!): Viewer
+    copyPlaylist(id: ID!, viewerId: String!): Playlist
   }
 
   input LogInInput {

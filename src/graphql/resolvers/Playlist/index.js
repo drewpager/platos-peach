@@ -106,5 +106,29 @@ exports.playlistResolvers = {
                 throw new Error(`Failed to delete playlist: ${error}`);
             }
         },
+        copyPlaylist: async (_root, { id, viewerId }, { db }) => {
+            const newId = new mongodb_1.ObjectId();
+            const playlist = await db.playlists.findOne({ _id: new mongodb_1.ObjectId(id) });
+            try {
+                if (playlist) {
+                    const insertResult = await db.playlists.insertOne({
+                        _id: new mongodb_1.ObjectId(newId),
+                        creator: viewerId,
+                        name: playlist.name,
+                        plan: [...playlist.plan],
+                    });
+                    const insertedResult = insertResult
+                        ? await db.playlists.findOne({ _id: insertResult.insertedId })
+                        : false;
+                    if (!insertedResult) {
+                        throw new Error("Failed to insert new lesson plan!");
+                    }
+                    return insertedResult;
+                }
+            }
+            catch (e) {
+                throw new Error(`Failed to copy playlist: ${e}`);
+            }
+        },
     },
 };
