@@ -67,26 +67,31 @@ exports.playlistResolvers = {
                 throw new Error(`Failed to insert lesson plan ${e}`);
             }
         },
-        updatePlan: async (_root, { id, input }, { db }) => {
+        updatePlan: async (_root, { input, id }, { db }) => {
             const ide = new mongodb_1.ObjectId(id);
             try {
                 const playlist = await db.playlists.findOneAndUpdate({ _id: ide }, {
                     $set: {
                         name: input.name,
-                        creator: input.creator,
                         plan: input.plan,
                     },
                 });
-                // if (!playlist) {
-                //   throw new Error(`Playlist Database update failed`);
-                // }
-                const insertedResult = playlist
+                if (!playlist) {
+                    throw new Error(`Playlist Database update failed`);
+                }
+                const upsertedResult = playlist
                     ? await db.playlists.findOne({ _id: ide })
                     : false;
-                if (!insertedResult) {
+                if (!upsertedResult) {
                     throw new Error(`Sorry, but I Failed to update this playlist!`);
                 }
-                return { ...insertedResult };
+                return {
+                    _id: upsertedResult._id,
+                    name: upsertedResult.name,
+                    plan: upsertedResult.plan,
+                    creator: upsertedResult.creator,
+                    authorized: true,
+                };
             }
             catch (e) {
                 throw new Error(`Failed to update playlist ${e}`);
