@@ -4,6 +4,7 @@ exports.typeDefs = void 0;
 const apollo_server_express_1 = require("apollo-server-express");
 exports.typeDefs = (0, apollo_server_express_1.gql) `
   scalar DateScalar
+  scalar JSON
 
   enum AnswerFormat {
     MULTIPLECHOICE
@@ -19,6 +20,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     playlists: [Playlist]
     lessons: [Lesson]
     quizzes: [Quiz]
+    articles: [Article]
     bookmarks: [Lesson]
   }
 
@@ -32,6 +34,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     playlists(limit: Int!, page: Int!): Playlists
     lessons(limit: Int!, page: Int!): Lessons
     quizzes(limit: Int!, page: Int!): Quizzes
+    articles(limit: Int!, page: Int!): Articles
     bookmarks: [Lesson]
   }
 
@@ -105,11 +108,68 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     totalCount: Int!
   }
 
+  type Article {
+    id: ID
+    title: String
+    content: Content
+    creator: String
+    public: Boolean
+  }
+
+  type Articles {
+    total: Int!
+    result: [Article!]!
+    totalCount: Int!
+  }
+
+  type Content {
+    blocks: [Blocks]
+    entityMap: [EntityMap]
+  }
+
+  type EntityMap {
+    type: String
+    mutability: String
+    data: EntityMapData
+  }
+
+  type EntityMapData {
+    src: String
+    width: String
+    alignment: String
+    height: String
+    url: String
+    targetOption: String
+  }
+
+  type Blocks {
+    key: String
+    text: String
+    type: String
+    depth: Int
+    inlineStyleRanges: [InlineStyleRanges]
+    entityRanges: [EntityRanges]
+  }
+
+  type InlineStyleRanges {
+    offset: Int
+    length: Int
+    style: String
+  }
+
+  type EntityRanges {
+    offset: Int
+    length: Int
+    key: Int
+  }
+
   type Query {
     authUrl: String!
     user(id: ID!): User!
     lesson(id: ID!): Lesson!
     playlist(id: ID!): Playlist!
+    article(id: ID!): Article!
+    allarticles(limit: Int!, page: Int!): Articles!
     allplaylists(limit: Int!, page: Int!): Playlists!
     allLessons(limit: Int!, page: Int!): Lessons!
     allUsers(limit: Int!, page: Int!): Users!
@@ -123,11 +183,13 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     disconnectStripe: Viewer!
     createLesson(input: CreateLessonInput): Lesson!
     createQuiz(input: CreateQuizInput): Quiz!
+    createArticle(input: CreateArticleInput): Article!
     lessonPlan(input: LessonPlanInput, viewerId: ID): Playlist!
     updatePlan(input: LessonPlanInput, id: ID): Playlist!
     deleteLesson(id: ID): Boolean!
     deletePlaylist(id: ID): Boolean!
     deleteQuiz(id: ID): Boolean!
+    deleteArticle(id: ID): Boolean!
     deleteAllBookmarks(id: ID): String
     bookmarkLesson(id: ID!, viewer: String!): String
     addPayment(id: ID!): Viewer
@@ -149,6 +211,59 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     startDate: DateScalar!
     endDate: DateScalar!
     creator: String!
+  }
+
+  input CreateArticleInput {
+    title: String
+    content: ContentInput
+    creator: String
+    public: Boolean
+  }
+
+  input ContentInput {
+    blocks: [BlocksInput]
+    entityMap: [EntityMapInput]
+  }
+
+  input EntityMapInput {
+    type: String
+    mutability: String
+    data: DataInput
+  }
+
+  input DataObject {
+    url: String
+  }
+
+  input DataInput {
+    src: String
+    width: String
+    alignment: String
+    height: String
+    url: String
+    targetOption: String
+  }
+
+  input BlocksInput {
+    key: String
+    text: String
+    type: String
+    depth: Int
+    inlineStyleRanges: [InlineStyleRangesInput]
+    entityRanges: [EntityRangesInput]
+    data: DataObject
+  }
+
+  input InlineStyleRangesInput {
+    offset: Int
+    length: Int
+    style: String
+  }
+
+  input EntityRangesInput {
+    offset: Int
+    length: Int
+    key: Int
   }
 
   input CreateQuizInput {
@@ -209,6 +324,8 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     endDate: DateScalar
     questions: [QuizQuestions]
     creator: String
+    content: ContentInput
+    public: Boolean
   }
 
   input LessonPlanInput {
@@ -217,5 +334,5 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     plan: [Plan]!
   }
 
-  union LessonPlanUnion = Quiz | Lesson
+  union LessonPlanUnion = Quiz | Lesson | Article
 `;

@@ -120,6 +120,30 @@ exports.userResolvers = {
                 throw new Error(`Failed to query quizzes ${e}`);
             }
         },
+        articles: async (user, { limit, page }, { db }) => {
+            try {
+                const data = {
+                    total: 0,
+                    result: [],
+                    totalCount: 0,
+                };
+                let cursor = await db.articles.find({
+                    creator: { $in: [user._id] },
+                });
+                const totalCount = await db.articles.find({
+                    creator: { $in: [user._id] },
+                });
+                cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
+                cursor = cursor.limit(limit);
+                data.total = await cursor.count();
+                data.result = await cursor.toArray();
+                data.totalCount = await totalCount.count();
+                return data;
+            }
+            catch (e) {
+                throw new Error(`Failed to query articles ${e}`);
+            }
+        },
         bookmarks: async (user, {}, { db }) => {
             try {
                 const cursor = await db.users.distinct("bookmarks", {

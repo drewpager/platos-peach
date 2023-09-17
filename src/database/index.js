@@ -11,6 +11,7 @@ const connectDatabase = async () => {
         users: db.collection("users"),
         playlists: db.collection("playlists"),
         quizzes: db.collection("quizzes"),
+        articles: db.collection("articles"),
     };
 };
 exports.connectDatabase = connectDatabase;

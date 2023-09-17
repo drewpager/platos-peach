@@ -10,4 +10,5 @@ const Lesson_1 = require("./Lesson");
 const User_1 = require("./User");
 const Playlist_1 = require("./Playlist");
 const Quiz_1 = require("./Quiz");
-exports.resolvers = (0, lodash_merge_1.default)(Viewer_1.viewerResolvers, Lesson_1.lessonResolvers, User_1.userResolvers, Playlist_1.playlistResolvers, Quiz_1.quizResolvers);
+const Article_1 = require("./Article");
+exports.resolvers = (0, lodash_merge_1.default)(Viewer_1.viewerResolvers, Lesson_1.lessonResolvers, User_1.userResolvers, Playlist_1.playlistResolvers, Quiz_1.quizResolvers, Article_1.articleResolvers);
