@@ -56,6 +56,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     startDate: DateScalar
     endDate: DateScalar
     creator: String
+    public: Boolean
   }
 
   type AnswerOptions {
@@ -211,6 +212,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     startDate: DateScalar!
     endDate: DateScalar!
     creator: String!
+    public: Boolean
   }
 
   input CreateArticleInput {
@@ -293,6 +295,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     startDate: DateScalar
     endDate: DateScalar
     creator: String
+    public: Boolean
   }
 
   input Answers {
