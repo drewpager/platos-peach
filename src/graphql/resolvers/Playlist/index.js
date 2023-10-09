@@ -77,6 +77,7 @@ exports.playlistResolvers = {
                     $set: {
                         name: input.name,
                         plan: input.plan,
+                        public: input.public,
                     },
                 });
                 if (!playlist) {
@@ -93,6 +94,7 @@ exports.playlistResolvers = {
                     name: upsertedResult.name,
                     plan: upsertedResult.plan,
                     creator: upsertedResult.creator,
+                    public: upsertedResult.public,
                     authorized: true,
                 };
             }
@@ -121,6 +123,7 @@ exports.playlistResolvers = {
                 if (playlist) {
                     const insertResult = await db.playlists.insertOne({
                         _id: new mongodb_1.ObjectId(newId),
+                        public: false,
                         creator: viewerId,
                         name: playlist.name,
                         plan: [...playlist.plan],

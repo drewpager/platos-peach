@@ -206,7 +206,7 @@ exports.userResolvers = {
                 const status = subscriptions.subscriptions.data[0].status;
                 const since = subscriptions.subscriptions.data[0].created;
                 const trial_end = subscriptions.subscriptions.data[0].trial_end;
-                const customerId = customer && customer.data[0].id;
+                const customerId = customer?.data[0].id;
                 const customerPay = await db.users.findOneAndUpdate({ _id: `${viewerId}` }, {
                     $set: {
                         paymentId: customerId,

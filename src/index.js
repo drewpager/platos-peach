@@ -36,7 +36,7 @@ const mount = async (app) => {
     app.use(express_1.default.static(`${__dirname}/`));
     app.get("/*", (_req, res) => res.sendFile(`${__dirname}/index.html`));
     app.post("/contact", async (req, res) => {
-        console.log(req.body);
+        // console.log(req.body);
         const contactEmail = nodemailer.createTransport({
             host: "smtp-relay.sendinblue.com",
             port: 587,
@@ -47,11 +47,11 @@ const mount = async (app) => {
         });
         contactEmail.sendMail(req.body, (error, info) => {
             if (error) {
-                console.log(error);
+                // console.log(error);
                 res.send("error");
             }
             else {
-                console.log("Email sent: " + info.response);
+                // console.log("Email sent: " + info.response);
                 res.send("success");
             }
         });
