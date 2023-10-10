@@ -75,6 +75,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     title: String
     questions: [Questions!]!
     creator: String
+    public: Boolean
   }
 
   type Lessons {
@@ -273,6 +274,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     title: String
     questions: [QuestionInput]
     creator: String
+    public: Boolean
   }
 
   input QuestionInput {
