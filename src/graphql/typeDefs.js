@@ -117,6 +117,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     content: Content
     creator: String
     public: Boolean
+    pdf: String
   }
 
   type Articles {
@@ -222,6 +223,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     content: ContentInput
     creator: String
     public: Boolean
+    pdf: String
   }
 
   input ContentInput {
@@ -333,6 +335,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     creator: String
     content: ContentInput
     public: Boolean
+    pdf: String
   }
 
   input LessonPlanInput {
