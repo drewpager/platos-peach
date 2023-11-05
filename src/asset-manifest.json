@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e4d0d49d.css",
-    "main.js": "/static/js/main.3a5d141b.js",
+    "main.css": "/static/css/main.b6106b71.css",
+    "main.js": "/static/js/main.a419ab61.js",
     "static/js/787.ee616d6a.chunk.js": "/static/js/787.ee616d6a.chunk.js",
     "static/media/pdf.worker.min.js": "/static/media/pdf.worker.min.ae5b1f7a5fe796b0713f.js",
     "static/media/how-it-works-1.png": "/static/media/how-it-works-1.8b1ca49f19d19e891dc3.png",
@@ -19,12 +19,12 @@
     "static/media/noto-serif-vietnamese-400-normal.woff2": "/static/media/noto-serif-vietnamese-400-normal.f1c754dda31c5a66e5dc.woff2",
     "index.html": "/index.html",
     "static/media/pipe.svg": "/static/media/pipe.1350c83d676297c59892b42e1f7ac8b2.svg",
-    "main.e4d0d49d.css.map": "/static/css/main.e4d0d49d.css.map",
-    "main.3a5d141b.js.map": "/static/js/main.3a5d141b.js.map",
+    "main.b6106b71.css.map": "/static/css/main.b6106b71.css.map",
+    "main.a419ab61.js.map": "/static/js/main.a419ab61.js.map",
     "787.ee616d6a.chunk.js.map": "/static/js/787.ee616d6a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e4d0d49d.css",
-    "static/js/main.3a5d141b.js"
+    "static/css/main.b6106b71.css",
+    "static/js/main.a419ab61.js"
   ]
 }
