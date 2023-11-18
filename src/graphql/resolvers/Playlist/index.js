@@ -11,6 +11,14 @@ exports.playlistResolvers = {
             }
             return playlist;
         },
+        plan: async (_root, { title }, { db }) => {
+            const regex = new RegExp(title, "i");
+            const playlist = await db.playlists.findOne({ name: regex });
+            if (!playlist) {
+                throw new Error("Failed to find playlist!");
+            }
+            return playlist;
+        },
         allplaylists: async (_root, { limit, page }, { db }) => {
             const data = {
                 total: 0,

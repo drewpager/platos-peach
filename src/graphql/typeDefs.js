@@ -172,6 +172,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     user(id: ID!): User!
     lesson(id: ID!): Lesson!
     playlist(id: ID!): Playlist!
+    plan(title: String!): Playlist!
     article(id: ID!): Article!
     allarticles(limit: Int!, page: Int!): Articles!
     allplaylists(limit: Int!, page: Int!): Playlists!
