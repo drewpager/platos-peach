@@ -127,13 +127,16 @@ exports.playlistResolvers = {
         copyPlaylist: async (_root, { id, viewerId }, { db }) => {
             const newId = new mongodb_1.ObjectId();
             const playlist = await db.playlists.findOne({ _id: new mongodb_1.ObjectId(id) });
+            const user = await db.users.findOne({ _id: viewerId });
             try {
                 if (playlist) {
                     const insertResult = await db.playlists.insertOne({
                         _id: new mongodb_1.ObjectId(newId),
                         public: false,
                         creator: viewerId,
-                        name: playlist.name,
+                        name: user
+                            ? `${playlist.name} ${user?.name} copy`
+                            : `${playlist.name} copy`,
                         plan: [...playlist.plan],
                     });
                     const insertedResult = insertResult
