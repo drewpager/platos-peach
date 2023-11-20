@@ -152,5 +152,18 @@ exports.playlistResolvers = {
                 throw new Error(`Failed to copy playlist: ${e}`);
             }
         },
+        updatePlanPublic: async (_root, { id, publicStatus }, { db }) => {
+            try {
+                const pub = publicStatus ? false : true;
+                const playlist = await db.playlists.findOneAndUpdate({ _id: new mongodb_1.ObjectId(id) }, { $set: { public: pub } });
+                if (!playlist) {
+                    throw new Error("Playlist update didn't work!");
+                }
+                return playlist.ok ? true : false;
+            }
+            catch (error) {
+                throw new Error(`Failed to update playlist: ${error}`);
+            }
+        },
     },
 };
