@@ -180,6 +180,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     allUsers(limit: Int!, page: Int!): Users!
     quiz(id: ID!): Quiz!
     allquizzes(limit: Int!, page: Int!): Quizzes!
+    relatedPlans(id: ID!): [Playlist!]!
   }
 
   type Mutation {
