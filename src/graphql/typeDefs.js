@@ -91,6 +91,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     creator: String!
     authorized: Boolean
     public: Boolean
+    premium: Boolean
   }
 
   type Playlists {
@@ -346,6 +347,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     creator: String!
     plan: [Plan]!
     public: Boolean
+    premium: Boolean
   }
 
   union LessonPlanUnion = Quiz | Lesson | Article

@@ -104,6 +104,7 @@ exports.playlistResolvers = {
                     creator: upsertedResult.creator,
                     public: upsertedResult.public,
                     authorized: true,
+                    premium: upsertedResult.premium,
                 };
             }
             catch (e) {
@@ -133,6 +134,7 @@ exports.playlistResolvers = {
                     const insertResult = await db.playlists.insertOne({
                         _id: new mongodb_1.ObjectId(newId),
                         public: false,
+                        premium: false,
                         creator: viewerId,
                         name: user
                             ? `${playlist.name} ${user?.name} copy`
