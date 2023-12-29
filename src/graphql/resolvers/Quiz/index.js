@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.quizResolvers = void 0;
 const mongodb_1 = require("mongodb");
+const api_1 = require("../../../lib/api");
 exports.quizResolvers = {
     Query: {
         quiz: async (_root, { id }, { db }) => {
@@ -64,6 +65,20 @@ exports.quizResolvers = {
             }
             catch (error) {
                 throw new Error(`Failed to start deleting quiz: ${error}`);
+            }
+        },
+        generateQuiz: async (_root, { numMCQuestions, numTFQuestions, subject }) => {
+            try {
+                const quiz = await (0, api_1.OpenAIQuiz)({
+                    numMCQuestions,
+                    numTFQuestions,
+                    subject,
+                });
+                const message = quiz;
+                return message;
+            }
+            catch (err) {
+                throw new Error(`Failed to generate quiz: ${err}`);
             }
         },
     },
