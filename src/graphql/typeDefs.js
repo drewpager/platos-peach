@@ -15,6 +15,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     id: ID
     token: String
     avatar: String
+    contact: String
     paymentId: String
     didRequest: Boolean!
     playlists: [Playlist]

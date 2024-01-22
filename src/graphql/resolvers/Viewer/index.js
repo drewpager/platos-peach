@@ -171,6 +171,7 @@ exports.viewerResolvers = {
                         _id: emailLogin?._id,
                         token: emailInput?.input?.password,
                         avatar: emailLogin?.avatar,
+                        contact: input?.email,
                         paymentId: emailLogin?.paymentId,
                         didRequest: true,
                     };
@@ -187,6 +188,7 @@ exports.viewerResolvers = {
                     _id: viewer._id,
                     token: viewer.token,
                     avatar: viewer.avatar,
+                    contact: viewer.contact,
                     paymentId: viewer.paymentId,
                     didRequest: true,
                 };
@@ -296,6 +298,9 @@ exports.viewerResolvers = {
         },
         paymentId: (viewer) => {
             return viewer.paymentId ? viewer.paymentId : undefined;
+        },
+        contact: (viewer) => {
+            return viewer.contact ? viewer.contact : undefined;
         },
         playlists: async (viewer, { limit, page }, { db }) => {
             try {
