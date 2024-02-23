@@ -93,6 +93,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     authorized: Boolean
     public: Boolean
     premium: Boolean
+    level: [Int!]
   }
 
   type Playlists {
@@ -354,6 +355,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     plan: [Plan]!
     public: Boolean
     premium: Boolean
+    level: [Int]
   }
 
   union LessonPlanUnion = Quiz | Lesson | Article

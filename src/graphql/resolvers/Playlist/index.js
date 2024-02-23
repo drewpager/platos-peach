@@ -42,6 +42,9 @@ exports.playlistResolvers = {
         name: (playlist) => {
             return playlist.name;
         },
+        level: (playlist) => {
+            return playlist.level;
+        },
     },
     LessonPlanUnion: {
         __resolveType(obj, context, info) {
@@ -105,6 +108,7 @@ exports.playlistResolvers = {
                     public: upsertedResult.public,
                     authorized: true,
                     premium: upsertedResult.premium,
+                    level: upsertedResult.level,
                 };
             }
             catch (e) {
@@ -140,6 +144,7 @@ exports.playlistResolvers = {
                             ? `${playlist.name} ${user?.name} copy`
                             : `${playlist.name} copy`,
                         plan: [...playlist.plan],
+                        level: [...playlist.level],
                     });
                     const insertedResult = insertResult
                         ? await db.playlists.findOne({ _id: insertResult.insertedId })
