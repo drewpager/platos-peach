@@ -58,6 +58,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     endDate: DateScalar
     creator: String
     public: Boolean
+    duration: Int
   }
 
   type AnswerOptions {
@@ -227,6 +228,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     endDate: DateScalar!
     creator: String!
     public: Boolean
+    duration: Int
   }
 
   input CreateArticleInput {
@@ -312,6 +314,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     endDate: DateScalar
     creator: String
     public: Boolean
+    duration: Int
   }
 
   input Answers {
@@ -347,6 +350,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     content: ContentInput
     public: Boolean
     pdf: String
+    duration: Int
   }
 
   input LessonPlanInput {

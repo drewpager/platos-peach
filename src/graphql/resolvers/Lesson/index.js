@@ -96,6 +96,9 @@ exports.lessonResolvers = {
         id: (lesson) => {
             return lesson._id;
         },
+        duration: (lesson) => {
+            return lesson.duration;
+        },
     },
     Playlist: {
         id: (playlist) => {
