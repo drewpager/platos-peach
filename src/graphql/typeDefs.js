@@ -95,6 +95,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     public: Boolean
     premium: Boolean
     level: [Int!]
+    category: [String]
   }
 
   type Playlists {
