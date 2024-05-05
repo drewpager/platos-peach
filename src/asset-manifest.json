@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.28459fa0.css",
-    "main.js": "/static/js/main.cab6da03.js",
-    "static/js/787.ee616d6a.chunk.js": "/static/js/787.ee616d6a.chunk.js",
+    "main.css": "/static/css/main.00df77dd.css",
+    "main.js": "/static/js/main.4978436c.js",
+    "static/js/27.15c83d11.chunk.js": "/static/js/27.15c83d11.chunk.js",
     "static/media/pdf.worker.min.js": "/static/media/pdf.worker.min.ae5b1f7a5fe796b0713f.js",
     "static/media/christina-headshot.png": "/static/media/christina-headshot.a51e8e7f3d9f75dbdc78.png",
     "static/media/how-it-works-1.png": "/static/media/how-it-works-1.8b1ca49f19d19e891dc3.png",
@@ -19,13 +19,10 @@
     "static/media/noto-serif-greek-ext-400-normal.woff2": "/static/media/noto-serif-greek-ext-400-normal.42a9f5d91dcd0b514f8e.woff2",
     "static/media/noto-serif-vietnamese-400-normal.woff2": "/static/media/noto-serif-vietnamese-400-normal.f1c754dda31c5a66e5dc.woff2",
     "index.html": "/index.html",
-    "static/media/pipe.svg": "/static/media/pipe.1350c83d676297c59892b42e1f7ac8b2.svg",
-    "main.28459fa0.css.map": "/static/css/main.28459fa0.css.map",
-    "main.cab6da03.js.map": "/static/js/main.cab6da03.js.map",
-    "787.ee616d6a.chunk.js.map": "/static/js/787.ee616d6a.chunk.js.map"
+    "static/media/pipe.svg": "/static/media/pipe.1350c83d676297c59892b42e1f7ac8b2.svg"
   },
   "entrypoints": [
-    "static/css/main.28459fa0.css",
-    "static/js/main.cab6da03.js"
+    "static/css/main.00df77dd.css",
+    "static/js/main.4978436c.js"
   ]
 }
