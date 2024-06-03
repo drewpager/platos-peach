@@ -99,6 +99,9 @@ exports.lessonResolvers = {
         duration: (lesson) => {
             return lesson.duration;
         },
+        // script: (lesson: Lesson) => {
+        //   return lesson.script;
+        // },
     },
     Playlist: {
         id: (playlist) => {

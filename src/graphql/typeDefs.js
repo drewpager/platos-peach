@@ -59,6 +59,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     creator: String
     public: Boolean
     duration: Int
+    script: String
   }
 
   type AnswerOptions {
@@ -230,6 +231,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     creator: String!
     public: Boolean
     duration: Int
+    script: String
   }
 
   input CreateArticleInput {
@@ -316,6 +318,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     creator: String
     public: Boolean
     duration: Int
+    script: String
   }
 
   input Answers {
@@ -352,6 +355,7 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     public: Boolean
     pdf: String
     duration: Int
+    script: String
   }
 
   input LessonPlanInput {
