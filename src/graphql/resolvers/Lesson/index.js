@@ -91,6 +91,14 @@ exports.lessonResolvers = {
             }
             return cursor;
         },
+        lessonTitle: async (_root, { title }, { db }) => {
+            const regex = new RegExp(title, "i");
+            const lessonTitle = await db.lessons.findOne({ title: regex });
+            if (!lessonTitle) {
+                throw new Error("Failed to find lesson!");
+            }
+            return lessonTitle;
+        },
     },
     Lesson: {
         id: (lesson) => {
