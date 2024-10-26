@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.577dff71.css",
-    "main.js": "/static/js/main.a2922888.js",
-    "static/js/27.15c83d11.chunk.js": "/static/js/27.15c83d11.chunk.js",
-    "static/media/pdf.worker.min.js": "/static/media/pdf.worker.min.ae5b1f7a5fe796b0713f.js",
+    "main.css": "/static/css/main.c01a9e0f.css",
+    "main.js": "/static/js/main.0047b2f9.js",
+    "static/js/206.38fd1138.chunk.js": "/static/js/206.38fd1138.chunk.js",
     "static/media/christina-headshot.png": "/static/media/christina-headshot.a51e8e7f3d9f75dbdc78.png",
+    "static/media/pdf.worker.min.js": "/static/media/pdf.worker.min.380330057e33539ae223.js",
     "static/media/how-it-works-1.png": "/static/media/how-it-works-1.8b1ca49f19d19e891dc3.png",
     "static/media/how-it-works-4.png": "/static/media/how-it-works-4.25b3564df53548c5a2c2.png",
     "static/media/noto-serif-all-400-normal.woff": "/static/media/noto-serif-all-400-normal.cc8d505e17e9106c7bb6.woff",
@@ -22,7 +22,7 @@
     "static/media/pipe.svg": "/static/media/pipe.1350c83d676297c59892b42e1f7ac8b2.svg"
   },
   "entrypoints": [
-    "static/css/main.577dff71.css",
-    "static/js/main.a2922888.js"
+    "static/css/main.c01a9e0f.css",
+    "static/js/main.0047b2f9.js"
   ]
 }
