@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.9f4cf2fb.css",
-    "main.js": "/static/js/main.b45c2d82.js",
+    "main.js": "/static/js/main.96ad611d.js",
     "static/js/206.38fd1138.chunk.js": "/static/js/206.38fd1138.chunk.js",
     "static/media/pdf.worker.min.mjs": "/static/media/pdf.worker.min.48ec784a5edb8e2894b8.mjs",
     "static/media/christina-headshot.png": "/static/media/christina-headshot.a51e8e7f3d9f75dbdc78.png",
@@ -24,6 +24,6 @@
   },
   "entrypoints": [
     "static/css/main.9f4cf2fb.css",
-    "static/js/main.b45c2d82.js"
+    "static/js/main.96ad611d.js"
   ]
 }
