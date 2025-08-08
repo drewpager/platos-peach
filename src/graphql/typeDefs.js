@@ -37,6 +37,8 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     quizzes(limit: Int!, page: Int!): Quizzes
     articles(limit: Int!, page: Int!): Articles
     bookmarks: [Lesson]
+    passwordResetToken: String
+    passwordResetExpires: Int
   }
 
   type Package {
@@ -213,6 +215,8 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     bookmarkLesson(id: ID!, viewer: String!): String
     addPayment(id: ID!): Viewer
     copyPlaylist(id: ID!, viewerId: String!): Playlist
+    requestPasswordReset(email: String!): Boolean!
+    resetPassword(token: String!, password: String!): Boolean!
   }
 
   input LogInInput {

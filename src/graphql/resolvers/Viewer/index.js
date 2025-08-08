@@ -10,6 +10,7 @@ const crypto_1 = __importDefault(require("crypto"));
 const utils_1 = require("../../../lib/utils");
 const stripe = require("stripe")(`${process.env.S_SECRET_KEY}`);
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 // When in production w/ HTTPS, add secure setting
 const cookieOptions = {
     httpOnly: true,
@@ -160,6 +161,59 @@ exports.viewerResolvers = {
         },
     },
     Mutation: {
+        requestPasswordReset: async (_root, { email }, { db, req }) => {
+            try {
+                const user = await db.users.findOne({ contact: `${email}` });
+                // Always return true to avoid account enumeration
+                if (!user) {
+                    return true;
+                }
+                const token = crypto_1.default.randomBytes(32).toString("hex");
+                const expires = Date.now() + 1000 * 60 * 60; // 1 hour
+                await db.users.updateOne({ _id: user._id }, { $set: { passwordResetToken: token, passwordResetExpires: expires } });
+                const resetUrl = `${process.env.PUBLIC_URL}/reset-password?token=${token}`;
+                const transporter = nodemailer.createTransport({
+                    host: process.env.SMTP_HOST || "smtp-relay.sendinblue.com",
+                    port: Number(process.env.SMTP_PORT || 587),
+                    auth: {
+                        user: process.env.SMTP_USER || "drew@greadings.com",
+                        pass: `${process.env.EMAILPASSWORD}`,
+                    },
+                });
+                await transporter.sendMail({
+                    from: process.env.SMTP_FROM || "Plato's Peach <no-reply@platospeach.com>",
+                    to: email,
+                    subject: "Reset your Plato's Peach password",
+                    text: `Click the link to reset your password: ${resetUrl}`,
+                    html: `<p>You requested a password reset.</p><p><a href="${resetUrl}">Click here to reset your password</a></p><p>This link will expire in 1 hour.</p>`,
+                });
+                return true;
+            }
+            catch (e) {
+                // Do not leak details
+                return true;
+            }
+        },
+        resetPassword: async (_root, { token, password }, { db }) => {
+            try {
+                const user = await db.users.findOne({
+                    passwordResetToken: token,
+                    passwordResetExpires: { $gt: Date.now() },
+                });
+                if (!user) {
+                    throw new Error("Invalid or expired token");
+                }
+                const hashed = await bcrypt.hash(password, 10);
+                await db.users.updateOne({ _id: user._id }, {
+                    $set: { token: hashed },
+                    $unset: { passwordResetToken: "", passwordResetExpires: "" },
+                });
+                return true;
+            }
+            catch (e) {
+                throw new Error(`Failed to reset password: ${e}`);
+            }
+        },
         logIn: async (_root, { input }, { db, req, res }) => {
             try {
                 if (!input?.code && input?.email && input?.password) {
