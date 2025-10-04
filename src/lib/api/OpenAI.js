@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OpenAIQuiz = void 0;
 require("dotenv").config();
 const openai_1 = __importDefault(require("openai"));
+if (!process.env.OPENAI_API_KEY) {
+    throw new Error("OPENAI_API_KEY is not set. Please configure your environment.");
+}
 const openai = new openai_1.default({ apiKey: `${process.env.OPENAI_API_KEY}` });
 const OpenAIQuiz = async ({ numMCQuestions, numTFQuestions, subject, }) => {
     const inputString = `Generate ${numMCQuestions} multiple choice questions and ${numTFQuestions} true/false questions about ${subject}.`;
@@ -20,10 +23,12 @@ const OpenAIQuiz = async ({ numMCQuestions, numTFQuestions, subject, }) => {
                 content: `${inputString}`,
             },
         ],
-        model: "gpt-4-1106-preview",
+        model: "gpt-4o-mini",
         response_format: { type: "json_object" },
     });
+    console.log(completion);
     const message = completion.choices[0].message.content;
+    console.log(message);
     return message;
 };
 exports.OpenAIQuiz = OpenAIQuiz;

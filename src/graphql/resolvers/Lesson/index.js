@@ -65,12 +65,11 @@ exports.lessonResolvers = {
                 totalCount: 0,
             };
             let cursor = await db.lessons.find({});
-            const count = cursor;
             cursor = cursor.skip(page > 1 ? (page - 1) * limit : 0);
             cursor = cursor.limit(limit);
-            data.total = await cursor.count();
             data.result = await cursor.toArray();
-            data.totalCount = await count.count();
+            data.total = data.result.length;
+            data.totalCount = await db.lessons.countDocuments({});
             return data;
         },
         relatedPlans: async (_root, { id }, { db }) => {

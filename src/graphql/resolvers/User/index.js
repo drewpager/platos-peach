@@ -28,12 +28,11 @@ exports.userResolvers = {
                 totalCount: 0,
             };
             let cursor = await db.users.find({});
-            const count = cursor;
             cursor = cursor.skip(page > 1 ? (page - 1) * limit : 0);
             cursor = cursor.limit(limit);
-            data.total = await cursor.count();
             data.result = await cursor.toArray();
-            data.totalCount = await count.count();
+            data.total = data.result.length;
+            data.totalCount = await db.users.countDocuments({});
             return data;
         },
     },
@@ -57,14 +56,13 @@ exports.userResolvers = {
                 let cursor = await db.playlists
                     .find({ creator: { $in: [user._id] } })
                     .sort({ _id: -1 });
-                const countTotal = await db.playlists.find({
-                    creator: { $in: [user._id] },
-                });
                 cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
                 cursor = cursor.limit(limit);
-                data.total = await cursor.count();
                 data.result = await cursor.toArray();
-                data.totalCount = await countTotal.count();
+                data.total = data.result.length;
+                data.totalCount = await db.playlists.countDocuments({
+                    creator: { $in: [user._id] },
+                });
                 return data;
             }
             catch (e) {
@@ -83,14 +81,13 @@ exports.userResolvers = {
                     creator: { $in: [user._id] },
                 })
                     .sort({ _id: -1 });
-                const totalCount = await db.lessons.find({
-                    creator: { $in: [user._id] },
-                });
                 cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
                 cursor = cursor.limit(limit);
-                data.total = await cursor.count();
                 data.result = await cursor.toArray();
-                data.totalCount = await totalCount.count();
+                data.total = data.result.length;
+                data.totalCount = await db.lessons.countDocuments({
+                    creator: { $in: [user._id] },
+                });
                 // if (data.total === 0) {
                 //   return null;
                 // }
@@ -112,14 +109,13 @@ exports.userResolvers = {
                     creator: { $in: [user._id] },
                 })
                     .sort({ _id: -1 });
-                const totalCount = await db.quizzes.find({
-                    creator: { $in: [user._id] },
-                });
                 cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
                 cursor = cursor.limit(limit);
-                data.total = await cursor.count();
                 data.result = await cursor.toArray();
-                data.totalCount = await totalCount.count();
+                data.total = data.result.length;
+                data.totalCount = await db.quizzes.countDocuments({
+                    creator: { $in: [user._id] },
+                });
                 return data;
             }
             catch (e) {
@@ -138,14 +134,13 @@ exports.userResolvers = {
                     creator: { $in: [user._id] },
                 })
                     .sort({ _id: -1 });
-                const totalCount = await db.articles.find({
-                    creator: { $in: [user._id] },
-                });
                 cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
                 cursor = cursor.limit(limit);
-                data.total = await cursor.count();
                 data.result = await cursor.toArray();
-                data.totalCount = await totalCount.count();
+                data.total = data.result.length;
+                data.totalCount = await db.articles.countDocuments({
+                    creator: { $in: [user._id] },
+                });
                 return data;
             }
             catch (e) {
@@ -189,7 +184,7 @@ exports.userResolvers = {
                     const customerId = undefined;
                     const amount = 0;
                     const cadence = "N/A";
-                    const status = "Inactive";
+                    const status = "inactive";
                     const since = 0;
                     const trial_end = 0;
                     const customerPay = await db.users.findOneAndUpdate({ _id: `${viewerId}` }, {
@@ -209,6 +204,33 @@ exports.userResolvers = {
                 const subscriptions = await stripe.customers.retrieve(`${customer.data[0].id}`, {
                     expand: ["subscriptions"],
                 });
+                // Check if subscription data exists and has the expected structure
+                if (!subscriptions.subscriptions ||
+                    !subscriptions.subscriptions.data ||
+                    subscriptions.subscriptions.data.length === 0 ||
+                    !subscriptions.subscriptions.data[0] ||
+                    !subscriptions.subscriptions.data[0].plan) {
+                    // Handle case where subscription data is not available
+                    const customerId = customer?.data[0].id;
+                    const amount = 0;
+                    const cadence = "N/A";
+                    const status = "inactive";
+                    const since = 0;
+                    const trial_end = 0;
+                    const customerPay = await db.users.findOneAndUpdate({ _id: `${viewerId}` }, {
+                        $set: {
+                            paymentId: customerId,
+                            package: {
+                                amount: amount,
+                                cadence: cadence,
+                                status: status,
+                                since: since,
+                                trialEnd: trial_end,
+                            },
+                        },
+                    });
+                    return customerPay ? viewerId : "Payment details unavailable";
+                }
                 const amount = subscriptions.subscriptions.data[0].plan.amount;
                 const cadence = subscriptions.subscriptions.data[0].plan.interval;
                 const status = subscriptions.subscriptions.data[0].status;
@@ -231,7 +253,7 @@ exports.userResolvers = {
                     const customerId = undefined;
                     const amount = 0;
                     const cadence = "N/A";
-                    const status = "Inactive";
+                    const status = "inactive";
                     const since = 0;
                     const trial_end = 0;
                     const customerPay = await db.users.findOneAndUpdate({ _id: `${viewerId}` }, {

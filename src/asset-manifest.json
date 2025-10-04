@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.9f4cf2fb.css",
-    "main.js": "/static/js/main.96ad611d.js",
+    "main.css": "/static/css/main.28e48440.css",
+    "main.js": "/static/js/main.79351a73.js",
     "static/js/206.38fd1138.chunk.js": "/static/js/206.38fd1138.chunk.js",
     "static/media/pdf.worker.min.mjs": "/static/media/pdf.worker.min.48ec784a5edb8e2894b8.mjs",
     "static/media/christina-headshot.png": "/static/media/christina-headshot.a51e8e7f3d9f75dbdc78.png",
@@ -16,14 +16,13 @@
     "static/media/noto-serif-latin-400-normal.woff2": "/static/media/noto-serif-latin-400-normal.0e4a2822a91cc3a78520.woff2",
     "static/media/noto-serif-greek-400-normal.woff2": "/static/media/noto-serif-greek-400-normal.e7b144dc27fe0458b3d8.woff2",
     "static/media/noto-serif-cyrillic-400-normal.woff2": "/static/media/noto-serif-cyrillic-400-normal.bc7ea545cf7b883404c9.woff2",
-    "static/media/king.png": "/static/media/king.e3993a577803b8eecab6.png",
     "static/media/noto-serif-greek-ext-400-normal.woff2": "/static/media/noto-serif-greek-ext-400-normal.42a9f5d91dcd0b514f8e.woff2",
     "static/media/noto-serif-vietnamese-400-normal.woff2": "/static/media/noto-serif-vietnamese-400-normal.f1c754dda31c5a66e5dc.woff2",
     "index.html": "/index.html",
     "static/media/pipe.svg": "/static/media/pipe.1350c83d676297c59892b42e1f7ac8b2.svg"
   },
   "entrypoints": [
-    "static/css/main.9f4cf2fb.css",
-    "static/js/main.96ad611d.js"
+    "static/css/main.28e48440.css",
+    "static/js/main.79351a73.js"
   ]
 }
