@@ -1,8 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.28e48440.css",
-    "main.js": "/static/js/main.79351a73.js",
+    "main.css": "/static/css/main.60dd56f1.css",
+    "main.js": "/static/js/main.20857209.js",
     "static/js/206.38fd1138.chunk.js": "/static/js/206.38fd1138.chunk.js",
+    "static/js/517.e0db1984.chunk.js": "/static/js/517.e0db1984.chunk.js",
+    "static/js/520.827ee421.chunk.js": "/static/js/520.827ee421.chunk.js",
+    "static/js/211.00594c62.chunk.js": "/static/js/211.00594c62.chunk.js",
+    "static/js/22.85a0b51b.chunk.js": "/static/js/22.85a0b51b.chunk.js",
     "static/media/pdf.worker.min.mjs": "/static/media/pdf.worker.min.48ec784a5edb8e2894b8.mjs",
     "static/media/christina-headshot.png": "/static/media/christina-headshot.a51e8e7f3d9f75dbdc78.png",
     "static/media/how-it-works-1.png": "/static/media/how-it-works-1.8b1ca49f19d19e891dc3.png",
@@ -22,7 +26,7 @@
     "static/media/pipe.svg": "/static/media/pipe.1350c83d676297c59892b42e1f7ac8b2.svg"
   },
   "entrypoints": [
-    "static/css/main.28e48440.css",
-    "static/js/main.79351a73.js"
+    "static/css/main.60dd56f1.css",
+    "static/js/main.20857209.js"
   ]
 }
